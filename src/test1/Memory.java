@@ -21,7 +21,8 @@ public class Memory {
         int nombreCase;
         int[] caseChoisie1 = new int[2];
         int[] caseChoisie2 = new int[2];
-        
+        int nombreCoups = 0;
+
         //Création du tableau
         do {
             nombreCase = ConsoleUtil.lireEntier(
@@ -52,70 +53,84 @@ public class Memory {
             }
 
         }
-        
-        do{
+
+        // Jeu
+        do {
             afficherTableau(tab, tabEtat);
-        
-           do{
-               System.out.println("1ère case :");
+
+            do {
+                System.out.println("1ère case :");
                 caseChoisie1 = saisirCase(tab.length);
-                if( tabEtat[caseChoisie1[0]][caseChoisie1[1]] == true)
+                if (tabEtat[caseChoisie1[0]][caseChoisie1[1]] == true) {
                     System.out.println("Case déjà retournée !!!");
-            }while(tabEtat[caseChoisie1[0]][caseChoisie1[1]] == true);
-                tabEtat[caseChoisie1[0]][caseChoisie1[1]] = true;
-           
-            afficherTableau(tab,tabEtat);
-        
-            do{
-            System.out.println("2ème case :");
-            caseChoisie2 = saisirCase(tab.length);
-            if( tabEtat[caseChoisie2[0]][caseChoisie2[1]] == true)
-                System.out.println("Case déjà retournée !!!");
-            }while(tabEtat[caseChoisie2[0]][caseChoisie2[1]] == true);
-                tabEtat[caseChoisie2[0]][caseChoisie2[1]] = true;
-            
-            afficherTableau(tab,tabEtat);
-    
-            if(tab[caseChoisie1[0]][caseChoisie1[1]] == tab[caseChoisie2[0]][caseChoisie2[1]]){
+                }
+            } while (tabEtat[caseChoisie1[0]][caseChoisie1[1]] == true);
+            tabEtat[caseChoisie1[0]][caseChoisie1[1]] = true;
+
+            afficherTableau(tab, tabEtat);
+
+            do {
+                System.out.println("2ème case :");
+                caseChoisie2 = saisirCase(tab.length);
+                if (tabEtat[caseChoisie2[0]][caseChoisie2[1]] == true) {
+                    System.out.println("Case déjà retournée !!!");
+                }
+            } while (tabEtat[caseChoisie2[0]][caseChoisie2[1]] == true);
+            tabEtat[caseChoisie2[0]][caseChoisie2[1]] = true;
+
+            afficherTableau(tab, tabEtat);
+
+            if (tab[caseChoisie1[0]][caseChoisie1[1]] == tab[caseChoisie2[0]][caseChoisie2[1]]) {
                 System.out.println("Bien joué! !!!\n");
             } else {
                 System.out.println("Essaye encore !!!\n");
                 tabEtat[caseChoisie1[0]][caseChoisie1[1]] = false;
                 tabEtat[caseChoisie2[0]][caseChoisie2[1]] = false;
             }
-        }while(partieGagnee(tabEtat) == false);
-                
+            nombreCoups++;
+        } while (partieGagnee(tabEtat) == false);
+        System.out.println("Vous avez ganez en : " + nombreCoups + " coups !!!");
+
     }
 
-    
 /////////////////////////////////// Fontions /////////////////////////////////// 
     public static boolean partieGagnee(boolean tabEtat[][]) {
-        return false;
+        boolean plein = true;
+        //Verification ligne
+        for (int ligne = 0; ligne < tabEtat.length; ligne++) {
+            for (int colonne = 0; colonne < tabEtat.length; colonne++) {
+                if (tabEtat[ligne][colonne] == false) {
+                    plein = false;
+                }
+            }
+        }
+
+        return plein;
     }
-    
-    public static int [] saisirCase(int tailleTableau) throws IOException {
+
+    public static int[] saisirCase(int tailleTableau) throws IOException {
         int[] caseChoisie = new int[2];
         int ligne;
         int colonne;
         do {
             ligne = ConsoleUtil.lireEntier("Veuillez saisir la ligne : ") - 1;
-            if (ligne < 0 | ligne > tailleTableau-1) {
+            if (ligne < 0 | ligne > tailleTableau - 1) {
                 System.out.println("Ligne inexistante !!!");
             }
-        } while (ligne < 0 | ligne > tailleTableau-1);
-                
+        } while (ligne < 0 | ligne > tailleTableau - 1);
+
         do {
             colonne = ConsoleUtil.lireEntier("Veuillez saisir la colonne : ") - 1;
-            if (colonne < 0 | colonne > tailleTableau-1) {
+            if (colonne < 0 | colonne > tailleTableau - 1) {
                 System.out.println("Colonne inexistante !!!");
             }
-        } while (colonne < 0 | colonne > tailleTableau-1);
+        } while (colonne < 0 | colonne > tailleTableau - 1);
         caseChoisie[0] = ligne;
         caseChoisie[1] = colonne;
-                
-        return caseChoisie;  
+
+        return caseChoisie;
     }
-    
+
     public static boolean verifierCase(char tab[][], int ligne, int colonne) {
         if (tab[ligne][colonne] == ' ') {
             return false;
