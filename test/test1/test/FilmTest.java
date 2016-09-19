@@ -6,7 +6,9 @@
 package test1.test;
 
 import org.junit.Test;
+import test1.classes.Acteur;
 import test1.classes.Film;
+import test1.classes.Genre;
 
 /**
  *
@@ -16,11 +18,8 @@ public class FilmTest {
     
     @Test
     public void test1(){
-    Film f1 = new Film();
-    
-    f1.setTitre("Pulp Fiction");
-  
+    Film f1 = new Film("Pourquoi pas?",120,"blabla",1990,new Genre("Historique"),new Acteur("moi", "seulement"));
+        System.out.println(f1);
    
-    System.out.println(f1);
     }
 }

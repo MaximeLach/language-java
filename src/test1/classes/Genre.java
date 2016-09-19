@@ -11,14 +11,28 @@ package test1.classes;
  */
 public class Genre {
     private String nom;
+    private static long nombre;
 
-    public String getNom() {
-        return nom;
+    public Genre() {
+        nombre++;
     }
 
-    public void setNom(String nom) {
+    @Override
+    public String toString() {
+        return nom; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Genre(String nom) {
+        this();
         this.nom = nom;
     }
+
+    public static long getNombre() {
+        return nombre;
+    }
+    
+
+   
     
     
 }

@@ -9,25 +9,30 @@ package test1.classes;
  *
  * @author admin
  */
-public class Acteur {
+   public class Acteur {
     private String nom;
     private String prenom;
+    private static long nombre;
 
-    public String getNom() {
-        return nom;
+    public Acteur() {
+        nombre++;
     }
 
-    public void setNom(String nom) {
+    public Acteur(String nom, String prenom) {
+        this();
         this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-    
+
+    public static long getNombre() {
+        return nombre;
+    }
+
+    @Override
+    public String toString() {
+        return nom + " " + prenom; //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
     
 }
